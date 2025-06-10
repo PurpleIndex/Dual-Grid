@@ -104,7 +104,8 @@ local M = {
     local newCell = {}
     newCell.type = self.types[cellType]or self.types["0000"]
     newCell.x, newCell.y = x, y
-    newCell.screenX, newCell.screenY = x * 8, y * 8
+    -- since all sprites are 8x8 we scale it by 8x8
+    newCell.screenX, newCell.screenY = (x - 1) * 8, (y - 1) * 8
     return setmetatable(newCell, self)
   end
 
