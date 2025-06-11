@@ -102,15 +102,33 @@ local M = {
 
   ,new = function(self, x, y, cellType)
     local newCell = {}
-    newCell.type = self.types[cellType]or self.types["0000"]
-    newCell.x, newCell.y = x, y
+    newCell.type = self.types[cellType] or self.types["0000"]
+
     -- since all sprites are 8x8 we scale it by 8x8
-    newCell.screenX, newCell.screenY = (x - 1) * 8, (y - 1) * 8
-    return setmetatable(newCell, self)
+    newCell.screenX, newCell.screenY = (x - 1) * 8 - 4, (y - 1) * 8 - 4
+    newCell.x, newCell.y = x, y
+
+    return setmetatable(newCell, {__index = self})
   end
 
   ,findNeighbours = function(self, board)
-    --TODO
+    --[[
+    -- ..upleft  upright..
+    --       [cell]
+    -- downleft  downright
+    --]]
+
+    local upLeft    = board[self.y - 1][self.x - 1]
+    local upRight   = board[self.y - 1][self.x + 1]
+    local downLeft  = board[self.y + 1][self.x - 1]
+    local downRight = board[self.y + 1][self.x + 1]
+
+    if not upLeft    then upLeft    = 0 end
+    if not upRight   then upRight   = 0 end
+    if not downLeft  then downLeft  = 0 end
+    if not downRight then downRight = 0 end
+
+    return upLeft..upRight..downLeft..downRight
   end
 }
 
