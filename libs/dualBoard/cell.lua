@@ -113,15 +113,25 @@ local M = {
 
   ,findNeighbours = function(self, board)
     --[[
-    -- ..upleft  upright..
-    --       [cell]
-    -- downleft  downright
+      OFFSET:
+      -0.5 dualBoard = &
+      ...0 board = #
+      both = @
+      none = .
+      ##    ##
+      #@    @#
+        \  /
+         &&
+         &&
+        /  \
+      #@    @#
+      ##    ##
     --]]
 
     local upLeft    = board[self.y - 1][self.x - 1]
-    local upRight   = board[self.y - 1][self.x + 1]
-    local downLeft  = board[self.y + 1][self.x - 1]
-    local downRight = board[self.y + 1][self.x + 1]
+    local upRight   = board[self.y - 1][self.x    ]
+    local downLeft  = board[self.y    ][self.x - 1]
+    local downRight = board[self.y    ][self.x    ]
 
     if not upLeft    then upLeft    = 0 end
     if not upRight   then upRight   = 0 end

@@ -10,3 +10,12 @@ function drawCells(spritesheet, dualBoard)
     end
   end
 end
+
+function updateCells(board, dualBoard)
+  for y, tbl in pairs(dualBoard) do
+    for x, val in pairs(tbl) do
+      local neighbours = val:findNeighbours(board)
+      val.type = val.types[neighbours]
+    end
+  end
+end

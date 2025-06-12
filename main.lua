@@ -10,11 +10,6 @@ function love.load()
   scale = 4
 
   spritesheet = love.graphics.newImage "sprites/spritesheet.png"
-  do -- boards
-    local dimensions = 16
-    dualBoard = initDualBoard(dimensions - 1)
-    board = initBoard(dimensions)
-  end
 
   --[[
     OFFSET:
@@ -33,13 +28,16 @@ function love.load()
   --]]
   local dimensions = 16
   dualBoard = initDualBoard(dimensions)
-  board = initBoard(dimensions)
+  board = initBoard(dimensions - 1)
 
+  board[1][1] = 0
+  board[2][2] = 0
   local windowDim = (scale*dimensions-4)*8
   love.window.setMode(windowDim, windowDim)
 end
 
 function love.update(dt)
+  updateCells(board, dualBoard)
 end
 
 function love.draw()
